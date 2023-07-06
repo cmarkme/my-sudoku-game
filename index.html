@@ -1,0 +1,164 @@
+<html>
+
+<head>
+  <style>
+    #tables {
+      display: flex;
+      flex-wrap: wrap;
+      width: 450px;
+      background-color: yellowgreen;
+      justify-content: flex-start;
+    }
+
+    .main-table {
+      /*display: flex;*/
+      justify-content: center;
+    }
+
+    .cellBig {
+      display: flex;
+      flex-wrap: wrap;
+      width: 48px;
+      height: 47px;
+      border-left: solid 1px;
+      border-bottom: solid 1px;
+      border-color: black;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cellSmall {
+      /*display: flex;*/
+      width: 47px;
+      height: 47px;
+      border: solid 1px;
+      border-color: black;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .brakky {
+      flex-basis: 100%;
+      height: 0;
+    }
+
+    .cell {
+      display: flex;
+      justify-content: center;
+    }
+
+    .mystyle {
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-table">
+    <div id="tables">
+      <div id="box1"></div>
+      <div id="box2"></div>
+      <div id="box3"></div>
+      <div id="box4"></div>
+      <div id="box5"></div>
+      <div id="box6"></div>
+      <div id="box7"></div>
+      <div id="box8"></div>
+      <div id="box9"></div>
+    </div>
+
+  </div>
+  <script>
+    let count = 1;
+    let count1 = 0;
+    let index3 = 1;
+    window.addEventListener('load', () => {
+      //build bigcells
+      for (a = 0; a < 9; a++) {
+        for (let index = 0; index < 9; index++) {
+          document.getElementById("box" + (a + 1)).innerHTML += "<div id='cellBig" + (index) + "' class='cellBig'></div>";
+          document.getElementById("box" + (a + 1)).classList.add("mystyle");
+          document.getElementById("box" + (a + 1)).style.width = "148";
+          document.getElementById("box" + (a + 1)).style.height = "148";
+          document.getElementById("box" + (a + 1)).style.display = "flex";
+          document.getElementById("box" + (a + 1)).style.flexWrap = "wrap";
+          count++;
+        }
+      }
+      //setup table and initial random numbers
+      //count1 = 1;
+      var randm = [];
+      var count3 = 1
+      for (index4 = 0; index4 < 9; index4++) {
+        //const rowset=null;
+        eval('var ' + 'rowset' + index4 + '=' + 'new Set;');
+        rset = eval('rowset' + index4);
+        for (index5 = 0; index5 < 1000; index5++) {
+          rset.add(Math.floor(Math.random() * 9 + 1));
+          if (rset.size > 8) {
+            break;
+          }
+        }
+      }
+      //sort order for boxes      
+      for (let index2 = 0; index2 < 9; index2++) {
+        for (let index1 = 0; index1 < 9; index1++) {
+          eval('var ' + 'mine' + index1 + '=' + 'Array.from(' + 'rowset' + index1 + ')');
+          document.getElementById("box" + (index2 + 1)).children[index1].innerHTML += "<div>" + eval('mine' + index2 + '[' + index1 + ']') + "</div>";;
+          // document.getElementById("cellBig" +(index1+1)).innerHTML += "<div>" +eval('mine'+index1+'[1]')+ "</div>";
+          console.log('worked');
+        }
+      }
+      //sort order for rows and columns
+      let boxcol1 = [1, 4, 7, 2, 5, 8, 3, 6, 9];
+      let boxrow1 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      // for(index=0; index<9; index++)
+      // {
+      boxcolsingl1 = new Set();
+      boxcolsingl2 = new Set();
+      boxcolsingl3 = new Set();
+      for (index1 = 0; index1 < 3; index1++) {
+        for (index2 = 0; index2 < 3; index2++) {
+          for (index3 = 0; index3 < 3; index3++) {
+            e1 = eval('boxcolsingl' + (index1 + 1));
+            e2 = eval('boxcol' + (index1 + 1) + '[' + index3 + ']');
+            e3 = eval('mine' + (e2) + '[' + e2 + '-1]');
+            //e1.add(eval(e3));
+            // eval('boxcolsingl'+([index1+1])+'.add(mine'+index2+'['+'boxcol1['+index3+']])');
+          }
+        }
+      }
+      //}
+      // for(index3=0; index3<6; index3++)
+      //         {
+      //           if(eval('mine'+(boxcol1[index2]-1)+'['+index2+']')==eval('mine'+(boxcol1[index2+1]-1)+'['+index2+']'))
+      //           {
+      //             console.log('same');
+      //             eval('mine'+(boxcol1[index1+1]-1)+'['+index2+']='+0);
+      //           }
+      //         }
+      //sort order for rows
+      for (let index2 = 0; index2 < 9; index2++) {
+        for (let index1 = 0; index1 < 9; index1++) {
+          if (eval('mine' + index2)) {}
+        }
+      }
+      //  else
+      //  {
+      //   index1--;
+      //   console.log('not worked');
+      //   count3--;
+      //  }
+      count3++;
+      if (count3 == 10) {
+        count3 = 1;
+      }
+      // randm.push([count1, index1 + 1, index2 + 1, (Math.floor(Math.random() * 9 + 1))]);
+      // count1++;
+      //console.log(randm[5][3]);
+    })
+  </script>
+
+</body>
+
+</html>
