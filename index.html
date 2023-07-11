@@ -72,6 +72,7 @@
     let count = 1;
     let count1 = 0;
     let index3 = 1;
+    let mine=[];
     window.addEventListener('load', () => {
       //build bigcells
       for (a = 0; a < 9; a++) {
@@ -103,10 +104,10 @@
       //sort order for boxes      
       for (let index2 = 0; index2 < 9; index2++) {
         for (let index1 = 0; index1 < 9; index1++) {
-          eval('var ' + 'mine' + index1 + '=' + 'Array.from(' + 'rowset' + index1 + ')');
-          document.getElementById("box" + (index2 + 1)).children[index1].innerHTML += "<div>" + eval('mine' + index2 + '[' + index1 + ']') + "</div>";;
+          mine[index1] = Array.from(eval('rowset' + index1)); // Use 'Array.from' to convert each 'rowset' to an array and store it in 'mine'
+    document.getElementById("box" + (index2 + 1)).children[index1].innerHTML += "<div>" + mine[index2][index1] + "</div>";
           // document.getElementById("cellBig" +(index1+1)).innerHTML += "<div>" +eval('mine'+index1+'[1]')+ "</div>";
-          console.log('worked');
+          
         }
       }
       //sort order for rows and columns
@@ -114,20 +115,34 @@
       let boxrow1 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
       // for(index=0; index<9; index++)
       // {
-      boxcolsingl1 = new Set();
-      boxcolsingl2 = new Set();
-      boxcolsingl3 = new Set();
-      for (index1 = 0; index1 < 3; index1++) {
-        for (index2 = 0; index2 < 3; index2++) {
-          for (index3 = 0; index3 < 3; index3++) {
-            e1 = eval('boxcolsingl' + (index1 + 1));
-            e2 = eval('boxcol' + (index1 + 1) + '[' + index3 + ']');
-            e3 = eval('mine' + (e2) + '[' + e2 + '-1]');
+      boxcolsingl = [];
+      boxcolsingl1 =[];
+
+      for (let i = 0; i < 9; i++) { // Loop through each column
+  let column = [];
+  for (let j = 0; j < 9; j++) { // Loop through each row
+    column.push(mine[j][i]); // Access the i-th element from the j-th row
+  }
+  boxcolsingl.push(column); // Add the column to boxcolsingl
+}
+      
+      /////////////////// i want to keep this to compare to gpt4 code... zse///////
+     // for (index1 = 0; index1 < 9; index1++) {
+        //for (index2 = 0; index2 < 3; index2++) {
+         // for (index3 = 0; index3 < 3; index3++) {
+       //   boxcolsingl[index1] =mine[boxcol1[index1]];
+
+            //e2 = eval('boxcol' + (index1 + 1) + '[' + index3 + ']');
+            //e3 = eval('mine' + (e2) + '[' + e2 + '-1]');
             //e1.add(eval(e3));
-            // eval('boxcolsingl'+([index1+1])+'.add(mine'+index2+'['+'boxcol1['+index3+']])');
-          }
-        }
-      }
+            //eval('boxcolsingl'+([index1+1])+'.add(mine'+index2+'['+'boxcol1['+index3+']])');
+        //  }
+       // }
+       //    }
+
+
+////////////////zse////////////////////////
+
       //}
       // for(index3=0; index3<6; index3++)
       //         {
