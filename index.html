@@ -110,21 +110,74 @@
           
         }
       }
-      //sort order for rows and columns
-      let boxcol1 = [1, 4, 7, 2, 5, 8, 3, 6, 9];
-      let boxrow1 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-      // for(index=0; index<9; index++)
-      // {
-      boxcolsingl = [];
-      boxcolsingl1 =[];
+      let boxcolsingl = []; // Initialize an empty array to hold the vertical columns
 
-      for (let i = 0; i < 9; i++) { // Loop through each column
-  let column = [];
-  for (let j = 0; j < 9; j++) { // Loop through each row
-    column.push(mine[j][i]); // Access the i-th element from the j-th row
+// Loop over the indices of the columns (from 0 to 8)
+for (let i = 0; i < 9; i++) {
+  let column = []; // Initialize an empty array to hold the current vertical column
+
+  // Loop over the indices of the boxes (from 0 to 8)
+  for (let j = 0; j < 9; j++) {
+    // Get the box and cell index for the current cell
+    let boxIndex = Math.floor(j / 3) * 3 + Math.floor(i / 3);
+    let cellIndex = (j % 3) * 3 + (i % 3);
+
+    // Access the cell in the 'mine' array, and add it to the 'column' array
+    column.push(mine[boxIndex][cellIndex]);
   }
-  boxcolsingl.push(column); // Add the column to boxcolsingl
+
+  // After collecting all elements in the current vertical column,
+  // add the 'column' array to the 'boxcolsingl' array
+  boxcolsingl.push(column);
 }
+
+//////////////////////////////////////
+
+// ...
+// After populating the 'boxcolsingl' array with vertical columns
+
+// Function to check if an array contains each number from 1 to 9 exactly once
+function isValid(arr) {
+  let checkSet = new Set(arr);
+  if (checkSet.size !== 9) {
+    return false; // If there are not exactly 9 unique numbers, it's invalid
+  }
+  for (let i = 1; i <= 9; i++) {
+    if (!checkSet.has(i)) {
+      return false; // If a number from 1 to 9 is missing, it's invalid
+    }
+  }
+  return true; // If there are 9 unique numbers and no numbers are missing, it's valid
+}
+
+// Check each vertical column
+for (let i = 0; i < 9; i++) {
+  if (!isValid(boxcolsingl[i])) {
+    console.log(`Column ${i + 1} is invalid.`);
+  }
+}
+
+// Check each box
+for (let i = 0; i < 9; i++) {
+  let box = mine.slice(i * 3, i * 3 + 3).flat();
+  if (!isValid(box)) {
+    console.log(`Box ${i + 1} is invalid.`);
+  }
+}
+
+// Check each row
+for (let i = 0; i < 9; i++) {
+  let rowIndex = Math.floor(i / 3) * 3 + i % 3;
+  let row = [];
+  for (let j = 0; j < 9; j++) {
+    let boxIndex = Math.floor(j / 3) * 3 + j % 3;
+    row.push(mine[boxIndex][rowIndex]);
+  }
+  if (!isValid(row)) {
+    console.log(`Row ${i + 1} is invalid.`);
+  }
+}
+
       
       /////////////////// i want to keep this to compare to gpt4 code... zse///////
      // for (index1 = 0; index1 < 9; index1++) {
